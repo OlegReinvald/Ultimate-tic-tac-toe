@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import (
     QApplication, QWidget, QGridLayout, QPushButton, QMessageBox, QVBoxLayout,
     QColorDialog, QHBoxLayout, QLabel, QFileDialog, QLineEdit, QSpacerItem, QSizePolicy, QMenuBar, QAction
 )
-from PyQt5.QtGui import QFont, QColor, QPixmap
+from PyQt5.QtGui import QFont, QColor, QPixmap, QIcon
 from PyQt5.QtCore import Qt
 
 
@@ -19,6 +19,7 @@ class UltimateTicTacToe(QWidget):
         self.setWindowTitle('Ultimate Tic-Tac-Toe')
         self.main_layout = QHBoxLayout()
         self.setLayout(self.main_layout)
+
 
         self.left_image_layout = QVBoxLayout()
         self.main_layout.addLayout(self.left_image_layout)
@@ -82,14 +83,17 @@ class UltimateTicTacToe(QWidget):
         game_menu.addAction(self.start_action)
 
         self.reset_action = QAction('Reset Game', self)
+        self.reset_action.setShortcut('R')
         self.reset_action.triggered.connect(self.resetGame)
         game_menu.addAction(self.reset_action)
 
         self.save_action = QAction('Save Game', self)
+        self.save_action.setShortcut('Ctrl+S')
         self.save_action.triggered.connect(self.saveGame)
         file_menu.addAction(self.save_action)
 
         self.load_action = QAction('Load Game', self)
+        self.load_action.setShortcut('Ctrl+L')
         self.load_action.triggered.connect(self.loadGame)
         file_menu.addAction(self.load_action)
 
@@ -398,6 +402,8 @@ class UltimateTicTacToe(QWidget):
 
 def main():
     app = QApplication(sys.argv)
+    QApplication.setApplicationName("Ultimate Tic-Tac-Toe")
+    QApplication.setWindowIcon(QIcon("icon.jpg"))
     ex = UltimateTicTacToe()
     ex.show()
     sys.exit(app.exec_())
