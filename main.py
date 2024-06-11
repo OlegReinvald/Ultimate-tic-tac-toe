@@ -106,7 +106,7 @@ class UltimateTicTacToe(QWidget):
         settings_menu.addAction(self.o_color_action)
 
     def createImageSelection(self):
-        self.left_nickname_label = QLabel("Nickname:", self)
+        self.left_nickname_label = QLabel("X's Nickname:", self)
         self.left_image_layout.addWidget(self.left_nickname_label)
 
         self.left_nickname_edit = QLineEdit(self)
@@ -123,7 +123,7 @@ class UltimateTicTacToe(QWidget):
 
         self.left_image_layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        self.right_nickname_label = QLabel("Nickname:", self)
+        self.right_nickname_label = QLabel("O's Nickname:", self)
         self.right_image_layout.addWidget(self.right_nickname_label)
 
         self.right_nickname_edit = QLineEdit(self)
@@ -169,6 +169,9 @@ class UltimateTicTacToe(QWidget):
         self.o_color_action.setEnabled(False)
         self.save_action.setEnabled(True)
 
+        self.left_nickname = self.left_nickname_edit.text()
+        self.right_nickname = self.right_nickname_edit.text()
+
     def selectXColor(self):
         color = QColorDialog.getColor()
         if color.isValid():
@@ -193,7 +196,7 @@ class UltimateTicTacToe(QWidget):
                 self.main_board[board_x][board_y] = self.current_player
                 self.replaceSubBoardWithBigSymbol(board_x, board_y)
                 if self.checkWin(self.main_board):
-                    QMessageBox.information(self, "Game Over", f"Player {self.current_player} wins!")
+                    QMessageBox.information(self, "Game Over", f"Player {self.left_nickname if self.current_player == 'X' else self.left_nickname} wins!")
                     self.resetGame()
                     return
             elif self.isBoardFull(self.sub_boards[board_index]):
