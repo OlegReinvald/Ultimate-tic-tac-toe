@@ -199,10 +199,10 @@ class UltimateTicTacToe(QWidget):
             elif self.isBoardFull(self.sub_boards[board_index]):
                 self.main_board[board_x][board_y] = "-"
                 self.replaceSubBoardWithBigSymbol(board_x, board_y, is_tie=True)
-                if self.checkGlobalDraw():
-                    QMessageBox.information(self, "Game Over", "It's a draw!")
-                    self.resetGame()
-                    return
+            if self.checkGlobalDraw():
+                QMessageBox.information(self, "Game Over", "It's a draw!")
+                self.resetGame()
+                return
             self.current_player = 'O' if self.current_player == 'X' else 'X'
             self.next_allowed_board = cell_x * 3 + cell_y
             if self.main_board[cell_x][cell_y] is not None:
