@@ -44,7 +44,6 @@ class UltimateTicTacToe(QWidget):
             for j in range(3):
                 mini_grid_widget = self.mini_grid_widgets[i][j]
                 mini_grid_widget.setLayout(self.mini_grids[i][j])
-                mini_grid_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 self.grid.addWidget(mini_grid_widget, i, j)
 
         for i in range(9):
