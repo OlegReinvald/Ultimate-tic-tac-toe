@@ -201,12 +201,14 @@ class UltimateTicTacToe(QWidget):
                 self.main_board[board_x][board_y] is None or self.next_allowed_board is not None and
                 self.main_board[board_x][board_y] is not None):
             self.buttons[x][y].setText(self.current_player)
+            self.buttons[x][y].setStyleSheet(f"color: {self.X_color if self.current_player == 'X' else self.O_color}")
             self.sub_boards[board_index][cell_x][cell_y] = self.current_player
             if self.checkWin(self.sub_boards[board_index]):
                 self.main_board[board_x][board_y] = self.current_player
                 self.replaceSubBoardWithBigSymbol(board_x, board_y)
                 if self.checkWin(self.main_board):
-                    QMessageBox.information(self, "Game Over", f"Player {self.left_nickname if self.current_player == 'X' else self.left_nickname} wins!")
+                    QMessageBox.information(self, "Game Over",
+                                            f"Player {self.left_nickname if self.current_player == 'X' else self.right_nickname} wins!")
                     self.resetGame()
                     return
             elif self.isBoardFull(self.sub_boards[board_index]):
