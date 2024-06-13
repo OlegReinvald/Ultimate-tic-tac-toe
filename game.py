@@ -95,6 +95,16 @@ class UltimateTicTacToe(QWidget):
         self.load_action.triggered.connect(self.loadGame)
         file_menu.addAction(self.load_action)
 
+        self.save_color_action = QAction('Save Colors', self)
+        self.save_color_action.setShortcut('Ctrl+Alt+S')
+        self.save_color_action.triggered.connect(self.saveColors)
+        file_menu.addAction(self.save_color_action)
+
+        self.load_color_action = QAction('Load Colors', self)
+        self.load_color_action.setShortcut('Ctrl+Alt+L')
+        self.load_color_action.triggered.connect(self.loadColors)
+        file_menu.addAction(self.load_color_action)
+
         self.x_color_action = QAction('Select X Color', self)
         self.x_color_action.triggered.connect(self.selectXColor)
         settings_menu.addAction(self.x_color_action)
@@ -342,8 +352,6 @@ class UltimateTicTacToe(QWidget):
             'main_board': self.main_board,
             'sub_boards': self.sub_boards,
             'next_allowed_board': self.next_allowed_board,
-            'X_color': self.X_color.name(),
-            'O_color': self.O_color.name(),
             'left_image_path': self.left_image_path,
             'right_image_path': self.right_image_path
         }
@@ -402,4 +410,22 @@ class UltimateTicTacToe(QWidget):
             self.save_action.setEnabled(True)
             QMessageBox.information(self, "Game Loaded", "The game has been loaded successfully!")
 
+    def saveColors(self):
+        colors = {
+            'X_color': self.X_color.name(),
+            'O_color': self.O_color.name(),
+        }
+        file_name, _ = QFileDialog.getSaveFileName(self, "Save Colors", "", "JSON Files (*.json)")
+        if file_name:
+            with open(file_name, 'w') as f:
+                json.dump(colors, f)
+            QMessageBox.information(self, "Colors Saved", "The colors have been saved successfully!")
+
+    def loadColors(self):
+        file_name, _ = QFileDialog.getOpenFileName(self, "Load Colors", "", "JSON Files (*.json)")
+        if file_name:
+            with open(file_name, 'r') as f:
+                colors = json.load(f)
+            self.X_color = QColor(colors['X_color'])
+            self.O_color = QColor(colors['O_color'])
 
